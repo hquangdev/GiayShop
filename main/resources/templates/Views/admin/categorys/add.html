@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+<div class="container mt-5">
+    <h2>Thêm danh mục</h2>
+
+    <form action="add-category" method="post">
+
+        <!-- Tên  -->
+        <div class="form-group">
+            <label for="name">Tên danh mục</label>
+            <input type="text" class="form-control" id="name" name="name" placeholder="Nhập tên danh mục" required>
+        </div>
+
+        <!-- Mô tả  -->
+        <div class="form-group">
+            <label for="content">Nội Dung</label>
+            <textarea class="form-control" id="content" name="content" rows="3" placeholder="Nhập nội dung sản phẩm" required></textarea>
+
+        </div>
+
+        <!-- Nút gửi -->
+        <button type="submit" class="btn btn-primary">Thêm danh mục</button>
+    </form>
+</div>
+
+</body>
+
+</html>

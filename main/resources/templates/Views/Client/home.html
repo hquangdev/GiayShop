@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Home</title>
+</head>
+<body>
+
+    <div class="intro-section bg-lighter pt-5 pb-6">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="intro-slider-container slider-container-ratio slider-container-1 mb-2 mb-lg-0">
+                        <div class="intro-slider intro-slider-1 owl-carousel owl-simple owl-light owl-nav-inside" data-toggle="owl" data-owl-options='{
+                                        "nav": false,
+                                        "responsive": {
+                                            "768": {
+                                                "nav": true
+                                            }
+                                        }
+                                    }'>
+
+                            <!-- lẶP SLIDE   -->
+                            <div class="intro-slide" th:each="slide : ${slides}">
+                                <figure class="slide-image">
+                                    <picture>
+                                        <source media="(max-width: 480px)" th:src="@{'/client/assets/images/slider/' + ${slide.img}}"/>
+                                        <img th:src="@{'/client/assets/images/slider/' + ${slide.img}}" alt="Image Desc"/>
+                                    </picture>
+                                </figure><!-- End .slide-image -->
+
+                                <div class="intro-content">
+                                    <h3 class="intro-subtitle" th:text="${slide.content}"></h3>
+                                    <h1 class="intro-title" th:text="${slide.title}"></h1>
+
+                                    <a href="#" class="btn btn-outline-white">
+                                        <span>Mua Ngay</span>
+                                        <i class="fas fa-long-arrow-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <span class="slider-loader"></span>
+                    </div>
+                </div>
+
+            </div><!-- End .row -->
+
+            <div class="mb-6"></div>
+
+        </div>
+    </div>
+
+
+    <div class="mb-6"></div>
+
+
+    <!-- Body của web -->
+    <div class="container">
+        <div class="heading heading-center mb-3">
+            <h2 class="title-lg">Các loại hàng</h2>
+
+            <ul class="nav nav-pills justify-content-center" role="tablist">
+
+                <!-- Lặp qua các danh mục để tạo các tab -->
+                <li class="nav-item" th:each="category : ${categories}">
+                    <a class="nav-link" th:text="${category.name}"></a>
+
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+    <div class="mb-5"></div><!-- End .mb-6 -->
+
+
+    <div class="container">
+        <div class="heading heading-center mb-6">
+            <h2 class="title">Các loại sản phẩm</h2>
+
+        </div><!-- End .heading -->
+
+        <div class="tab-content">
+            <div class="tab-pane p-0 fade show active" id="top-all-tab" role="tabpanel" aria-labelledby="top-all-link">
+                <div class="products">
+                    <div class="row justify-content-center">
+                        <div class="col-6 col-md-4 col-lg-3" th:each="product: ${product}">
+                            <div class="product product-11 mt-v3 text-center">
+                                <figure class="product-media">
+                                    <a th:href="@{/home/productDetails/{id}(id=${product.id})}">
+                                        <img th:src="@{'/client/assets/images/products/' + ${product.image}}" class="product-image" alt="">
+                                    </a>
+                                </figure>
+
+                                <div class="product-body">
+                                    <h3 class="product-title">
+                                        <a th:href="@{/home/productDetails/{id}(id=${product.id})}" th:text="${product.name}"></a>
+                                    </h3>
+
+                                    <div class="product-price" ><p th:text="${product.price}"> </p> .đ</div>
+                                </div>
+                                <div class="product-action" style="justify-content: center;">
+                                    <form th:action="@{/home/add-to-cart}" method="post">
+                                        <input type="hidden" name="productId" th:value="${product.id}" />
+                                        <button type="submit" class="btn-product btn-cart">
+                                            <span>Thêm vào giỏ hàng</span>
+                                        </button>
+                                    </form>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+
+
+
+
+    <div class="container">
+        <hr>
+        <div class="row justify-content-center">
+            <div class="col-lg-4 col-sm-6">
+                <div class="fas fa-box fas fa-box-card text-center">
+                            <span class="fas fa-box-icon">
+                                <i class="fas fa-rocket"></i>
+                            </span>
+                    <div class="fas fa-box-content">
+                        <h3 class="fas fa-box-title">Payment & Delivery</h3><!-- End .fas fa-box-title -->
+                        <p>Free shipping for orders over $50</p>
+                    </div><!-- End .fas fa-box-content -->
+                </div><!-- End .fas fa-box -->
+            </div><!-- End .col-lg-4 col-sm-6 -->
+
+            <div class="col-lg-4 col-sm-6">
+                <div class="fas fa-box fas fa-box-card text-center">
+                            <span class="fas fa-box-icon">
+                                <i class="fas fa-rotate-left"></i>
+                            </span>
+                    <div class="fas fa-box-content">
+                        <h3 class="fas fa-box-title">Return & Refund</h3><!-- End .fas fa-box-title -->
+                        <p>Free 100% money back guarantee</p>
+                    </div><!-- End .fas fa-box-content -->
+                </div><!-- End .fas fa-box -->
+            </div><!-- End .col-lg-4 col-sm-6 -->
+
+            <div class="col-lg-4 col-sm-6">
+                <div class="fas fa-box fas fa-box-card text-center">
+                            <span class="fas fa-box-icon">
+                                <i class="fas fa-life-ring"></i>
+                            </span>
+                    <div class="fas fa-box-content">
+                        <h3 class="fas fa-box-title">Quality Support</h3><!-- End .fas fa-box-title -->
+                        <p>Alway online feedback 24/7</p>
+                    </div><!-- End .fas fa-box-content -->
+                </div><!-- End .fas fa-box -->
+            </div><!-- End .col-lg-4 col-sm-6 -->
+        </div><!-- End .row -->
+
+        <div class="mb-2"></div><!-- End .mb-2 -->
+    </div><!-- End .container -->
+
+
+
+
+
+</body>
+</html>

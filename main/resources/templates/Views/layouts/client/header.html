@@ -1,0 +1,131 @@
+
+<div th:fragment="header">
+<header class="header">
+    <div class="header-top">
+        <div class="container">
+            <div class="header-left">
+                <div class="header-dropdown">
+                    <li><a href="tel:#"><i class="fas fa-phone"></i> Call: +0123 456 789</a></li>
+                </div><!-- End .header-dropdown -->
+
+            </div>
+
+            <div class="header-right">
+                <ul class="top-menu">
+                    <li>
+                        <a href="#">Links</a>
+                        <ul>
+                            <!-- Kiểm tra xem người dùng đã đăng nhập hay chưa -->
+                            <li th:if="${session.loggedInUser == null}">
+                                <a th:href="@{/home/login}"><i class="fas fa-user"></i> Đăng nhập</a>
+                            </li>
+
+                            <!-- Nếu người dùng đã đăng nhập -->
+                            <li th:if="${session.loggedInUser != null}">
+                                <a href="#"><i class="fas fa-user"></i> Hello, <span th:text="${session.loggedInUser.username}"></span>!</a>
+                            </li>
+
+                            <!-- Nếu người dùng đã đăng nhập, có thể đăng xuất -->
+                            <li th:if="${session.loggedInUser != null}">
+                                <a th:href="@{/home/logout}"><i class="fas fa-logout"></i> Đăng xuất</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                </ul>
+
+            </div><!-- End .header-right -->
+        </div><!-- End .container -->
+    </div><!-- End .header-top -->
+
+    <div class="header-middle sticky-header">
+        <div class="container">
+            <div class="header-left">
+
+                <a th:href="@{/home}" class="logo">
+                    <img src="/client/assets/images/Nike.jpg" alt="Molla Logo" width="105" height="25">
+                </a>
+
+                <nav class="main-nav">
+                    <ul class="menu sf-arrows">
+                        <li class="megamenu-container active">
+                            <a th:href="@{/home}" > <i class="fas fa-home"></i> Trang chủ</a>
+                        </li>
+                        <li>
+                            <a href="#" >Liên hệ</a>
+                        </li>
+                        <li>
+                            <a href="#">Sản phẩm</a>
+                            <ul>
+                                <li th:each="product : ${product}">
+                                    <a th:href="@{/home/productDetails/{id}(id=${product.id})}" th:text="${product.name}"></a>
+                                </li>
+                            </ul>
+                        </li>
+
+
+                    </ul>
+                </nav>
+            </div>
+
+            <div class="header-right">
+                <div class="header-search">
+                    <a href="#" class="search-toggle" role="button" title="Search"><i class="fas fa-search icon"></i></a>
+
+                    <form action="/home/search" method="get">
+                        <div class="header-search-wrapper">
+                            <label for="q" class="sr-only">Search</label>
+                            <input type="search" class="form-control" name="query" id="q" placeholder="Search in..." required>
+                        </div><!-- End .header-search-wrapper -->
+                    </form>
+
+                </div><!-- End .header-search -->
+
+                <div class="dropdown cart-dropdown">
+                    <a th:href="@{/home/cart}" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
+                        <i class="fas fa-shopping-cart"></i>
+
+                        <span class="cart-count">2</span>
+                    </a>
+
+
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <div class="dropdown-cart-products">
+                            <div class="product" th:each="item: ${cart}">
+                                <div class="product-cart-details">
+                                    <h4 class="product-title">
+                                        <a th:href="@{/home/productDetails/{id}(id=${item.id})}" th:text="${item.name}"></a>
+                                    </h4>
+
+                                    <span class="cart-product-info">
+                                        <span class="cart-product-qty" th:text="${item.quantity}"></span>
+                                        x <span th:text="${item.price}">84.00</span> đ
+                                    </span>
+                                </div><!-- End .product-cart-details -->
+
+                                <figure class="product-image-container">
+                                    <a href="product.html" class="product-image">
+                                        <img th:src="@{'/client/assets/images/products/' + ${item.image}}" class="product-image" alt="">
+                                    </a>
+                                </figure>
+                                <a href="#" class="btn-remove" th:text=${item.title} title="Remove Product"><i class="fas fa-close"></i></a>
+                            </div><!-- End .product -->
+
+
+                        </div><!-- End .cart-product -->
+
+                        <div class="dropdown-cart-total">
+                            <span>Tổng tiền</span>
+                            <span class="cart-total-price" th:text="${totalPrice}" >$160.00 </span> đ
+                        </div><!-- End .dropdown-cart-total -->
+
+                        <div class="dropdown-cart-action">
+                            <a th:href="@{/home/cart}" class="btn btn-primary" style="width: 250px;">Giỏ hàng</a>
+                        </div><!-- End .dropdown-cart-total -->
+                    </div><!-- End .dropdown-menu -->
+                </div><!-- End .cart-dropdown -->
+            </div><!-- End .header-right -->
+        </div><!-- End .container -->
+    </div><!-- End .header-middle -->
+</header>
+</div>

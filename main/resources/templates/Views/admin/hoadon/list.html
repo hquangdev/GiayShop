@@ -1,0 +1,65 @@
+
+
+
+<body>
+<div class="row">
+    <div class="col-xs-12">
+        <!-- PAGE CONTENT BEGINS -->
+        <div class="row">
+            <div class="col-xs-12">
+                <h3 class="header smaller lighter blue">Danh sách hóa đơn</h3>
+
+                <div class="clearfix">
+                    <div class="pull-right tableTools-container"></div>
+                </div>
+                <div class="table-header">
+                    <p th:text="${mess}"></p>
+                </div>
+                <!-- div.dataTables_borderWrap -->
+                <div>
+                    <table id="dynamic-table" class="table table-striped table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Tên Khách Hàng</th>
+                            <th>Email</th>
+                            <th>Số Điện Thoại</th>
+                            <th>Địa Chỉ</th>
+                            <th>Tổng Giá</th>
+                            <th>Chi Tiết</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <tr th:each="order : ${orders}">
+                            <td class="center" th:text="${order.id}"> </td>
+
+                            <td class="center" th:text="${order.name}"> </td>
+
+                            <td class="center" th:text="${order.email}"> </td>
+                            <td class="center" th:text="${order.phone}"> </td>
+                            <td class="center" th:text="${order.address}"> </td>
+                            <td class="center" th:text="${order.tongia}"> </td>
+
+                            <td>
+                                <div class="hidden-sm hidden-xs action-buttons">
+                                    <a class="blue" th:href="@{/admin/bill/{id}(id=${order.id})}">
+                                        <i class="ace-icon fa fa-search-plus bigger-130"></i>
+                                    </a>
+
+                                    <a class="green" th:href="@{/admin/bill/delete/{id}(id=${order.id})}">
+                                        <i class="ace-icon fa fa-trash-o bigger-130"></i>
+                                    </a>
+
+                                </div>
+
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div><!-- /.col -->
+</div><!-- /.row -->

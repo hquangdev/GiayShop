@@ -1,0 +1,18 @@
+<div class="intro-slide" th:each="slide : ${slides}">
+    <figure class="slide-image">
+        <picture>
+            <source media="(max-width: 480px)" th:src="@{'/client/assets/images/slider/' + ${slide.img}}"/>
+            <img th:src="@{'/client/assets/images/slider/' + ${slide.img}}" alt="Image Desc"/>
+        </picture>
+    </figure><!-- End .slide-image -->
+
+    <div class="intro-content">
+        <h3 class="intro-subtitle" th:text="${slide.content}"></h3><!-- End .h3 intro-subtitle -->
+        <h1 class="intro-title" th:text="${slide.title}"></h1><!-- End .intro-title -->
+
+        <a href="category.html" class="btn btn-outline-white">
+            <span>Mua Ngay</span>
+            <i class="fas fa-long-arrow-right"></i>
+        </a>
+    </div><!-- End .intro-content -->
+</div><!-- End .intro-slide -->

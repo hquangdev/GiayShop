@@ -1,0 +1,9 @@
+.overlay {
+    position: fixed; /* Định vị cố định để phủ lên toàn bộ màn hình */
+    top: 0;
+    left: 0;
+    width: 100vw; /* Chiều rộng bằng chiều rộng màn hình */
+    height: 100vh; /* Chiều cao bằng chiều cao màn hình */
+    background-color: rgba(255, 255, 255, 0.8); /* Màu trắng với độ mờ */
+    z-index: 999; /* Đảm bảo lớp che nằm trên cùng */
+}

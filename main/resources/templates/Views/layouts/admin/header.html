@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="header">
+
+    <div class="navbar-header pull-left">
+        <a href="index.html" class="navbar-brand">
+            <small>
+                <i class="fa fa-leaf"></i>
+                Ace Admin
+            </small>
+        </a>
+    </div>
+
+    <div class="navbar-buttons navbar-header pull-right" role="navigation">
+        <ul class="nav ace-nav">
+
+            <li class="light-blue">
+                <a data-toggle="dropdown" href="#" class="dropdown-toggle">
+                    <!-- Hiển thị tên người dùng nếu đã đăng nhập -->
+                    <span class="user-info" th:if="${username != null}">
+            <small>Welcome,</small>
+            <span th:text="${username}">User</span>
+        </span>
+
+                    <!-- Hiển thị phần đăng nhập nếu chưa đăng nhập -->
+                    <span class="user-info" th:if="${username == null}">
+            <small>Welcome,</small>
+        </span>
+
+                    <i class="ace-icon fa fa-caret-down"></i>
+                </a>
+
+                <ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
+                    <li class="divider"></li>
+
+                    <!-- Nếu người dùng đã đăng nhập, hiển thị nút đăng xuất -->
+                    <li th:if="${username != null}">
+                        <a href="/admin/logout">
+                            <i class="ace-icon fa fa-power-off"></i>
+                            Logout
+                        </a>
+                    </li>
+
+                    <!-- Nếu người dùng chưa đăng nhập, hiển thị nút đăng nhập -->
+                    <li th:if="${username == null}">
+                        <a href="/admin/login">
+                            <i class="ace-icon fa fa-sign-in"></i>
+                            Login
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+        </ul>
+    </div>
+</div><!-- /.navbar-container -->
+</div>
+</body>
+</html>

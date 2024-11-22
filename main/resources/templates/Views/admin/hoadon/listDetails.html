@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Chi Tiết Đơn Hàng</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f7fc;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        h2 {
+            color: #444;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .order-details {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .order-details p {
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+
+        .order-details strong {
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        td {
+            background-color: #fff;
+        }
+
+        tr:nth-child(even) td {
+            background-color: #f9f9f9;
+        }
+
+        td:last-child {
+            font-weight: bold;
+        }
+
+        /* Style for the total price row */
+        .total-row {
+            background-color: #f8f8f8;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .total-row td {
+            text-align: right;
+        }
+
+    </style>
+</head>
+<body>
+<h1>Chi Tiết Đơn Hàng</h1>
+
+<div>
+    <p><strong>Tên Khách Hàng:</strong> <span th:text="${order.name}"></span></p>
+    <p><strong>Email:</strong> <span th:text="${order.email}"></span></p>
+    <p><strong>Số Điện Thoại:</strong> <span th:text="${order.phone}"></span></p>
+    <p><strong>Địa Chỉ:</strong> <span th:text="${order.address}"></span></p>
+    <p><strong>Ghi Chú:</strong> <span th:text="${order.note}"></span></p>
+    <p><strong>Tổng Giá:</strong> <span th:text="${order.tongia}"></span></p>
+</div>
+
+<h2>Sản Phẩm</h2>
+<table>
+    <thead>
+    <tr>
+        <th>Tên Sản Phẩm</th>
+        <th>Số Lượng</th>
+        <th>Giá</th>
+        <th>Tổng Giá</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="item : ${orderItems}">
+        <td th:text="${item.product.name}"></td>
+        <td th:text="${item.quantity}"></td>
+        <td th:text="${item.product.price}"></td>
+        <td th:text="${item.quantity * item.product.price}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<a href="/admin/bill/list">Trở lại danh sách đơn hàng</a>
+
+</body>
+</html>

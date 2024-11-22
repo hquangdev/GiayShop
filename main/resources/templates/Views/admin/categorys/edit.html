@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+<div class="container mt-5">
+    <h2>Sua danh muc</h2>
+
+    <form action="/admin/categorys/edit-category" method="post">
+
+        <input class="hidden" name="id" th:value="${category.id}">
+        <!-- Tên sản phẩm -->
+        <div class="form-group">
+            <label for="name">Tên danh mục</label>
+            <input type="text" class="form-control" id="name" name="name" th:value="${category.name}"  required>
+        </div>
+
+
+        <!-- Mô tả  -->
+        <div class="form-group">
+            <label for="content">Nội Dung</label>
+            <textarea class="form-control" id="content" name="content" rows="3" th:text="${category.content}" required></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Cập Nhật danh mục</button>
+    </form>
+
+
+</div>
+
+</body>
+
+</html>

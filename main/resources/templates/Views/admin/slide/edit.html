@@ -1,0 +1,46 @@
+
+<body>
+<div class="container mt-5">
+    <h2>Sửa Sản Phẩm</h2>
+
+    <form action="/admin/slide/update" method="post" enctype="multipart/form-data">
+
+        <input class="hidden" name="id" th:value="${slide.id}">
+
+        <!-- Hình ảnh đại diện -->
+        <div class="form-group">
+            <label for="productImage">Hình ảnh</label>
+            <input type="file" class="form-control-file" id="productImage" name="image" accept="image/*" onchange="previewImage(event)">
+            <img id="imagePreview" class="mt-2" th:src="@{'/client/assets/images/slider/' + ${slide.img}}" style="max-width: 200px;">
+        </div>
+
+
+        <!-- Title -->
+        <div class="form-group">
+            <label for="title">Tiêu đề</label>
+            <input type="text" class="form-control" id="title" name="title" th:value="${slide.title}" required>
+        </div>
+
+        <!-- Mô tả  -->
+        <div class="form-group">
+            <label for="description">Nội Dung</label>
+            <textarea class="form-control" id="description" name="description" rows="3"  required th:text="${slide.content}"></textarea>
+        </div>
+
+
+        <button type="submit" class="btn btn-primary">Cập Nhật</button>
+    </form>
+
+
+</div>
+
+<script>
+    function previewImage(event) {
+        var reader = new FileReader();
+        reader.onload = function() {
+            var output = document.getElementById('imagePreview');
+            output.src = reader.result;
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    }
+</script>

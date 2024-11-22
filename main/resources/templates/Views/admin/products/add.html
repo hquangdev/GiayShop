@@ -1,0 +1,76 @@
+
+<div class="container mt-5">
+    <h2>Thêm Sản Phẩm</h2>
+
+    <form action="add-product" method="post" enctype="multipart/form-data">
+
+        <!-- Hình ảnh  -->
+        <div class="form-group">
+            <label >Hình Ảnh</label>
+            <input type="file" class="form-control-file"  name="image"  onchange="previewAdditionalImages(event)">
+            <div id="additionalImagePreviews" class="mt-2"></div>
+        </div>
+
+        <input type="hidden" name="status" value="1">
+
+
+        <!-- Tên sản phẩm -->
+        <div class="form-group">
+            <label for="name">Tên Sản Phẩm</label>
+            <input type="text" class="form-control" id="name" name="name" placeholder="Nhập tên sản phẩm" required>
+        </div>
+
+        <!-- Danh mục -->
+        <div class="form-group">
+            <label for="category_id">Danh mục</label>
+            <select class="form-control" id="category_id" name="category_Id" required>
+                <option value="">Chọn danh mục</option>
+                <th:block th:each="item : ${category}">
+                    <option th:value="${item.id}" th:text="${item.name}"></option>
+                </th:block>
+            </select>
+        </div>
+
+        <!-- Title -->
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" class="form-control" id="title" name="title" placeholder="Nhập tiêu đề" required>
+        </div>
+
+        <!-- Mô tả sản phẩm -->
+        <div class="form-group">
+            <label for="description">Nội Dung</label>
+            <textarea class="form-control" id="description" name="description" rows="3" placeholder="Nhập nội dung sản phẩm" required></textarea>
+        </div>
+
+        <!-- Giá -->
+        <div class="form-group">
+            <label for="price">Giá</label>
+            <input type="number" class="form-control" id="price" name="price" placeholder="Nhập giá sản phẩm" required>
+        </div>
+
+        <div class="form-group">
+            <label>Số lượng</label>
+            <input type="number" class="form-control"  name="quantity" placeholder="Nhập số lượng sản phẩm" required>
+        </div>
+
+
+        <button type="submit" class="btn btn-primary">Thêm Sản Phẩm</button>
+    </form>
+</div>
+
+<script>
+
+    // Hàm xem trước hình ảnh bổ sung
+    function previewAdditionalImages(event) {
+        const additionalImagePreviews = document.getElementById('additionalImagePreviews');
+        additionalImagePreviews.innerHTML = ''; // Xóa nội dung cũ
+        for (let i = 0; i < event.target.files.length; i++) {
+            const img = document.createElement('img');
+            img.src = URL.createObjectURL(event.target.files[i]);
+            img.style.maxWidth = '100px';
+            img.style.marginRight = '10px';
+            additionalImagePreviews.appendChild(img);
+        }
+    }
+</script>

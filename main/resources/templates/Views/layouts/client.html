@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+
+  <!-- Favicon -->
+  <link rel="apple-touch-icon" sizes="180x180" th:href="@{/client/assets/images/icons/apple-touch-icon.png}">
+  <link rel="icon" type="image/png" sizes="32x32" th:href="@{/client/assets/images/icons/favicon-32x32.png}">
+  <link rel="icon" type="image/png" sizes="16x16" th:href="@{/client/assets/images/icons/favicon-16x16.png}">
+  <link rel="manifest" th:href="@{/client/assets/images/icons/site.html}">
+  <link rel="mask-icon" th:href="@{/client/assets/images/icons/safari-pinned-tab.svg}" color="#666666">
+  <link rel="shortcut icon" th:href="@{/client/assets/images/icons/favicon.ico}">
+  <meta name="apple-mobile-web-app-title" content="Molla">
+  <meta name="application-name" content="Molla">
+  <meta name="msapplication-TileColor" content="#cc9966">
+  <meta name="msapplication-config" th:href="@{/client/assets/images/icons/browserconfig.xml}">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="stylesheet" th:href="@{/client/assets/vendor/line-awesome/line-awesome/line-awesome/css/line-awesome.min.css}">
+  <link rel="stylesheet" th:href="@{/client/assets/vendor/font-awesome/css/all.min.css}">
+  <!-- Plugins CSS File -->
+  <link rel="stylesheet" th:href="@{/client/assets/css/bootstrap.min.css}">
+  <link rel="stylesheet" th:href="@{/client/assets/css/plugins/owl-carousel/owl.carousel.css}">
+  <link rel="stylesheet" th:href="@{client/assets/css/plugins/magnific-popup/magnific-popup.css}">
+  <!-- Main CSS File -->
+  <link rel="stylesheet" th:href="@{/client/assets/css/style.css}">
+  <link rel="stylesheet" th:href="@{/client/assets/css/styleCS.css}">
+
+
+</head>
+
+<body>
+
+<div class="page-wrapper">
+
+  <div th:replace="layouts/client/header :: header"></div>
+
+  <main class="main">
+    <div th:replace="${content}"></div>
+  </main><!-- End .main -->
+
+  <div th:replace="layouts/client/footer :: footer"></div>
+
+
+</div><!-- End .page-wrapper -->
+
+<button id="scroll-top" title="Back to Top"><i class="icon-arrow-up"></i></button>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu-overlay"></div><!-- End .mobil-menu-overlay -->
+
+
+
+  <script th:src="@{/client/assets/js/jquery.min.js}"></script>
+  <script th:src="@{/client/assets/js/bootstrap.bundle.min.js}"></script>
+  <script th:src="@{/client/assets/js/jquery.hoverIntent.min.js}"></script>
+  <script th:src="@{/client/assets/js/jquery.waypoints.min.js}"></script>
+  <script th:src="@{/client/assets/js/superfish.min.js}"></script>
+  <script th:src="@{/client/assets/js/owl.carousel.min.js}"></script>
+  <script th:src="@{/client/assets/js/bootstrap-input-spinner.js}"></script>
+  <script th:src="@{/client/assets/js/jquery.elevateZoom.min.js}"></script>
+  <script th:src="@{/client/assets/js/bootstrap-input-spinner.js}"></script>
+  <script th:src="@{/client/assets/js/jquery.magnific-popup.min.js}"></script>
+  <!-- Main JS File -->
+  <script th:src="@{/client/assets/js/main.js}"></script>
+
+
+</body>
+</html>

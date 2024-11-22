@@ -1,0 +1,45 @@
+
+<div class="container mt-5">
+    <h2>Thêm Slide</h2>
+
+    <form action="add-slide" method="post" enctype="multipart/form-data">
+
+        <!-- Hình ảnh  -->
+        <div class="form-group">
+            <label >Hình Ảnh</label>
+            <input type="file" class="form-control-file"  name="img"  onchange="previewAdditionalImages(event)">
+            <div id="additionalImagePreviews" class="mt-2"></div>
+        </div>
+
+        <!-- Title -->
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" class="form-control" id="title" name="title" placeholder="Nhập tiêu đề" required>
+        </div>
+
+        <!-- Mô tả sản phẩm -->
+        <div class="form-group">
+            <label for="description">Nội Dung</label>
+            <textarea class="form-control" id="description" name="content" rows="3" placeholder="Nhập nội dung" required></textarea>
+        </div>
+
+
+        <button type="submit" class="btn btn-primary">Thêm Slide</button>
+    </form>
+</div>
+
+<script>
+
+    // Hàm xem trước hình ảnh bổ sung
+    function previewAdditionalImages(event) {
+        const additionalImagePreviews = document.getElementById('additionalImagePreviews');
+        additionalImagePreviews.innerHTML = ''; // Xóa nội dung cũ
+        for (let i = 0; i < event.target.files.length; i++) {
+            const img = document.createElement('img');
+            img.src = URL.createObjectURL(event.target.files[i]);
+            img.style.maxWidth = '100px';
+            img.style.marginRight = '10px';
+            additionalImagePreviews.appendChild(img);
+        }
+    }
+</script>

@@ -1,0 +1,74 @@
+
+<body>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h3 class="header smaller lighter blue">Danh sách sản phẩm</h3>
+
+                    <div class="clearfix">
+                        <div class="pull-right tableTools-container"></div>
+                    </div>
+                    <div th:if="${mess}" class="alert alert-success">
+                        <p th:text="${mess}"></p>
+                    </div>
+
+                    <div>
+                        <table id="dynamic-table" class="table table-striped table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th class="hidden-480">Hình ảnh</th>
+                                <th>Tên sản phẩm</th>
+                                <th>Danh mục</th>
+                                <th>Tiêu đề</th>
+                                <th>Chi tiết</th>
+                                <th>Giá ( VND )</th>
+                                <th>Số lượng</th>
+                                <th > Hành động</th>
+                            </tr>
+                            </thead>
+
+                            <tbody>
+                            <tr th:each="item: ${products}">
+                                <td class="center" th:text="${item.id}"> </td>
+
+
+                                <td class="center">
+                                    <img th:src="@{'/client/assets/images/products/' + ${item.image}}"
+                                         style="width:150px; height:auto;" />
+                                </td>
+
+                                <td class="center" th:text="${item.name}"> </td>
+
+                                <td class="center" th:if="${item.category != null}" th:text="${item.category.name}"> </td>
+
+                                <td class="center" th:text="${item.title}"> </td>
+
+                                <td class="center" th:text="${item.description}"> </td>
+
+                                <td class="center" th:text="${item.price}"> </td>
+
+                                <td class="center" th:text="${item.quantity}"> </td>
+
+                                <td>
+                                    <div class="hidden-sm hidden-xs action-buttons">
+                                        <a class="green" th:href="@{edit/{id}(id=${item.id})}">
+                                            <i class="ace-icon fa fa-pencil bigger-130"></i>
+                                        </a>
+
+                                        <a class="red" th:href="@{delete/{id}(id=${item.id})}">
+                                            <i class="ace-icon fa fa-trash-o bigger-130"></i>
+                                        </a>
+
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- /.col -->
+    </div>

@@ -1,0 +1,148 @@
+
+<body>
+
+<div th:fragment="sidebar">
+    <div class="sidebar-shortcuts" id="sidebar-shortcuts">
+        <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
+            <button class="btn btn-success">
+                <i class="ace-icon fa fa-signal"></i>
+            </button>
+
+            <button class="btn btn-info">
+                <i class="ace-icon fa fa-pencil"></i>
+            </button>
+
+            <button class="btn btn-warning">
+                <i class="ace-icon fa fa-users"></i>
+            </button>
+
+            <button class="btn btn-danger">
+                <i class="ace-icon fa fa-cogs"></i>
+            </button>
+        </div>
+
+        <div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
+            <span class="btn btn-success"></span>
+
+            <span class="btn btn-info"></span>
+
+            <span class="btn btn-warning"></span>
+
+            <span class="btn btn-danger"></span>
+        </div>
+    </div><!-- /.sidebar-shortcuts -->
+
+    <ul class="nav nav-list">
+        <li class="active">
+            <a href="/admin/home">
+                <i class="menu-icon fa fa-tachometer"></i>
+                <span class="menu-text"> Dashboard </span>
+            </a>
+
+            <b class="arrow"></b>
+        </li>
+
+        <li class="">
+            <a href="/admin/home" class="dropdown-toggle">
+                <i class="menu-icon fa fa-list"></i>
+                <span class="menu-text">QUẢN LÝ</span>
+                <b class="arrow fa fa-angle-down"></b>
+            </a>
+            <b class="arrow"></b>
+
+            <ul class="submenu">
+                <li class="">
+                    <a href="#" class="dropdown-toggle">
+                        <i class="menu-icon fa fa-list"></i>
+                        <span class="menu-text"> Quản lý sản phẩm </span>
+                        <b class="arrow fa fa-angle-down"></b>
+                    </a>
+
+                    <ul class="submenu" >
+                        <li class="">
+                            <a th:href="@{/admin/products/add}">Thêm sản phẩm</a>
+                        </li>
+
+                        <li class="">
+                            <a th:href="@{/admin/products/list}">Danh sách sản phẩm</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="">
+                    <a href="#" class="dropdown-toggle">
+                        <i class="menu-icon fa fa-list"></i>
+                        <span class="menu-text"> Quản lý danh mục </span>
+                        <b class="arrow fa fa-angle-down"></b>
+                    </a>
+
+                    <ul class="submenu" >
+                        <li class="">
+                            <a th:href="@{/admin/categorys/add}">Thêm danh mục</a>
+                        </li>
+
+                        <li class="">
+                            <a th:href="@{/admin/categorys/list}">Danh sách danh mục</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="">
+                    <a href="#" class="dropdown-toggle">
+                        <i class="menu-icon fa fa-list"></i>
+                        <span class="menu-text"> Quản lý slide </span>
+                        <b class="arrow fa fa-angle-down"></b>
+                    </a>
+
+                    <ul class="submenu" >
+                        <li class="">
+                            <a th:href="@{/admin/slide/add}">Thêm slide</a>
+                        </li>
+
+                        <li class="">
+                            <a th:href="@{/admin/slide/list}">Danh sách slide</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="">
+                    <a href="#" class="dropdown-toggle">
+                        <i class="menu-icon fa fa-list"></i>
+                        <span class="menu-text"> Quản lý đơn hàng </span>
+                        <b class="arrow fa fa-angle-down"></b>
+                    </a>
+
+                    <ul class="submenu" >
+                        <li class="">
+                            <a th:href="@{/admin/bill/list}">Danh sách đơn hàng</a>
+                        </li>
+                    </ul>
+                </li>
+
+
+
+                <li class="">
+                    <a href="#" class="dropdown-toggle">
+                        <i class="menu-icon fa fa-list"></i>
+                        <span class="menu-text"> Quản lý khách & nhân viên </span>
+                        <b class="arrow fa fa-angle-down"></b>
+                    </a>
+
+                    <ul class="submenu" >
+                        <li class="">
+                            <a th:href="@{/admin/khachhang}">Danh sách khách hàng</a>
+                        </li>
+
+                        <li class="">
+                            <a th:href="@{/admin/nhanvien}">Danh sách nhân viên</a>
+                        </li>
+                    </ul>
+                </li>
+
+            </ul>
+
+
+        </li>
+
+    </ul><!-- /.nav-list -->
+</div>

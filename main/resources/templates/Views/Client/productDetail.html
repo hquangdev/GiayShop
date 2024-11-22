@@ -1,0 +1,74 @@
+
+<body>
+<nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
+    <div class="container d-flex align-items-center">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"> <a href="/home">Home</a></li>
+            <li class="breadcrumb-item"><a href="#">Products</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Default</li>
+        </ol>
+
+    </div><!-- End .container -->
+</nav><!-- End .breadcrumb-nav -->
+
+<div class="page-content">
+    <div class="container">
+        <div class="product-details-top">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="product-gallery product-gallery-vertical">
+                        <div class="row">
+                            <!-- Ảnh đại diện  -->
+                            <figure class="product-main-image" >
+                                <img id="product-zoom"
+                                     th:src="@{'/client/assets/images/products/' + ${product.image}}" alt="acb"/>
+                            </figure>
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-6">
+                    <div class="product-details">
+                        <h1 class="product-title" th:text="${product.name}"></h1>
+
+                        <div class="product-price">
+                           <h4 th:text="${product.price}"></h4>
+                        </div><!-- End .product-price -->
+
+                        <div class="product-content">
+                            <p th:text="${product.title}"></p>
+                        </div>
+
+                        <div class="product-content">
+                            <p th:text="${product.description}"></p>
+                        </div>
+
+                        <div class="product-details-action">
+                            <form th:action="@{/home/add-to-cart}" method="post">
+                                <input type="hidden" name="productId" th:value="${product.id}" />
+                                <button type="submit" class="btn-product btn-cart">
+                                    <span>Thêm vào giỏ hàng</span>
+                                </button>
+                            </form>
+                        </div><!-- End .product-details-action -->
+
+                        <div class="product-details-footer">
+                            <div class="product-cat">
+                                <span>Category:</span>
+                                <a href="#" th:each="category: ${category}" th:text="${category.name}">Women</a>,
+
+                            </div>
+                        </div>
+                    </div><!-- End .product-details -->
+                </div><!-- End .col-md-6 -->
+
+
+            </div><!-- End .row -->
+        </div>
+
+        <h2 class="title text-center mb-4">You May Also Like</h2>
+    </div><!-- End .container -->
+</div><!-- End .page-content -->
