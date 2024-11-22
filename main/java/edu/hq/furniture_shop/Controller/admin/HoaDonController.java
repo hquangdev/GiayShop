@@ -24,10 +24,12 @@ public class HoaDonController {
 
 
     @GetMapping("/admin/bill/list")
-    public String listBill(Model model, HttpSession seesion){
-        String username = (String) seesion.getAttribute("username");
+    public String listBill(Model model, HttpSession session){
+        String username = (String) session.getAttribute("username");
+        Integer role = (Integer) session.getAttribute("role");
 
-        if (username == null) {
+        // Kiểm tra xem username hoặc role có null không
+        if (username == null || role == null) {
             return "redirect:/home/login";
         }
         List<Order> order = orderRepository.findAll();

@@ -34,9 +34,10 @@ public class ProductController {
     @GetMapping("/list")
     public String product(Model model, HttpSession session){
         String username = (String) session.getAttribute("username");
-        int role = (int) session.getAttribute("role");
+        Integer role = (Integer) session.getAttribute("role");
 
-        if (role == 0) {
+        // Kiểm tra xem username hoặc role có null không
+        if (username == null || role == null) {
             return "redirect:/home/login";
         }
 
@@ -51,10 +52,10 @@ public class ProductController {
     //chuyẻn tới trang thêm ssản phẩm
     @GetMapping("/add")
     public String AddProduct(Model model, HttpSession session){
-
         String username = (String) session.getAttribute("username");
+        Integer role = (Integer) session.getAttribute("role");
 
-        if (username == null) {
+        if (username == null || role == null) {
             return "redirect:/home/login";
         }
 
@@ -116,7 +117,6 @@ public class ProductController {
         // Gọi service cập nhật sản phẩm
         productSV.updateProduct(id, name, title, description, price, quantity, category, file);
 
-        // Sau khi cập nhật, chuyển hướng về trang danh sách sản phẩm
         return "redirect:/admin/products/list";
     }
 

@@ -27,9 +27,10 @@ public class SlideController {
     @GetMapping("/list")
     public String list(Model model, HttpSession session) {
         String username = (String) session.getAttribute("username");
-        int role = (int) session.getAttribute("role");
+        Integer role = (Integer) session.getAttribute("role");
 
-        if (role == 0) {
+        // Kiểm tra xem username hoặc role có null không
+        if (username == null || role == null) {
             return "redirect:/home/login";
         }
 

@@ -12,26 +12,27 @@ public class HomeAdminController {
     @GetMapping("/admin/home")
     public String showAdminHomePage(HttpSession session, Model model) {
         String username = (String) session.getAttribute("username");
+        Integer role = (Integer) session.getAttribute("role");
 
-        int role = (int) session.getAttribute("role");
-
-        if (username == null) {
+        // Kiểm tra xem username hoặc role có null không
+        if (username == null || role == null) {
             return "redirect:/home/login";
         }
+
         model.addAttribute("username", username);
         model.addAttribute("role", role);
         model.addAttribute("contentAdmin", "/admin/home-admin");
         return"layouts/admin";
     }
-
-    @GetMapping("/admin/login")
-    public String login(){
-        return"/admin/login";
-    }
-
-    @GetMapping("/admin/register")
-    public String register(Model model){
-        return"/admin/register";
-    }
+//
+//    @GetMapping("/admin/login")
+//    public String login(){
+//        return"/admin/login";
+//    }
+//
+//    @GetMapping("/admin/register")
+//    public String register(Model model){
+//        return"/admin/register";
+//    }
 
 }
