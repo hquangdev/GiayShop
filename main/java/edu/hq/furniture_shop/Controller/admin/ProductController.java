@@ -33,14 +33,16 @@ public class ProductController {
 
     @GetMapping("/list")
     public String product(Model model, HttpSession session){
-
         String username = (String) session.getAttribute("username");
+        int role = (int) session.getAttribute("role");
 
-        if (username == null) {
-            return "redirect:/admin/login";
+        if (role == 0) {
+            return "redirect:/home/login";
         }
 
         model.addAttribute("contentAdmin", "admin/products/list");
+        model.addAttribute("role", role);
+        model.addAttribute("username", username);
         model.addAttribute("products", productRepository.findAll());
         model.addAttribute("category", categoryRepository.findAll());
         return"layouts/admin";
@@ -53,7 +55,7 @@ public class ProductController {
         String username = (String) session.getAttribute("username");
 
         if (username == null) {
-            return "redirect:/admin/login";
+            return "redirect:/home/login";
         }
 
         model.addAttribute("contentAdmin", "admin/products/add");
@@ -87,7 +89,7 @@ public class ProductController {
         String username = (String) session.getAttribute("username");
 
         if (username == null) {
-            return "redirect:/admin/login";
+            return "redirect:/home/login";
         }
 
         Product product = productSV.getProductById(id);
@@ -121,7 +123,7 @@ public class ProductController {
 
     // Xóa sản phẩm
     @GetMapping("/delete/{id}")
-    public String deleteProduct(@PathVariable("id") Long id) {
+    public String deleteProduct(@PathVariable("id") Long id, HttpSession session) {
         productSV.deleteProduct(id);
 
         return "redirect:/admin/products/list";

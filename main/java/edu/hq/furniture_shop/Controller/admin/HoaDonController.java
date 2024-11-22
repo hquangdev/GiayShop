@@ -28,7 +28,7 @@ public class HoaDonController {
         String username = (String) seesion.getAttribute("username");
 
         if (username == null) {
-            return "redirect:/admin/login";
+            return "redirect:/home/login";
         }
         List<Order> order = orderRepository.findAll();
         model.addAttribute("orders", order);

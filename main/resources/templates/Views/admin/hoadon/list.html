@@ -47,7 +47,8 @@
                                         <i class="ace-icon fa fa-search-plus bigger-130"></i>
                                     </a>
 
-                                    <a class="green" th:href="@{/admin/bill/delete/{id}(id=${order.id})}">
+                                    <!-- Chỉ hiển thị nút xóa nếu role == 1 -->
+                                    <a class="green" th:if="${role == 1}" th:href="@{/admin/bill/delete/{id}(id=${order.id})}">
                                         <i class="ace-icon fa fa-trash-o bigger-130"></i>
                                     </a>
 

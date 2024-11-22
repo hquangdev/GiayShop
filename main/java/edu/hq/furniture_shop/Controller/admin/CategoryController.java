@@ -28,12 +28,17 @@ public class CategoryController  {
     public String listCategory(Model model, HttpSession session){
 
         String username = (String) session.getAttribute("username");
+        int role = (int) session.getAttribute("role");
 
-        if (username == null) {
-            return "redirect:/admin/login";
+        if (role == 0) {
+            return "redirect:/home/login";
         }
 
         model.addAttribute("contentAdmin", "admin/categorys/list");
+
+        model.addAttribute("role", role);
+        model.addAttribute("username", username);
+
         model.addAttribute("category", categoryRepository.findAll());
         return"layouts/admin";
     }
@@ -44,7 +49,7 @@ public class CategoryController  {
         String username = (String) session.getAttribute("username");
 
         if (username == null) {
-            return "redirect:/admin/login";
+            return "redirect:/home/login";
         }
 
         model.addAttribute("contentAdmin", "admin/categorys/add");
@@ -65,7 +70,7 @@ public class CategoryController  {
         String username = (String) session.getAttribute("username");
 
         if (username == null) {
-            return "redirect:/admin/login";
+            return "redirect:/home/login";
         }
 
         // Tìm danh mục theo ID

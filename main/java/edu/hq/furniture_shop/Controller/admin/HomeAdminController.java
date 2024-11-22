@@ -13,10 +13,13 @@ public class HomeAdminController {
     public String showAdminHomePage(HttpSession session, Model model) {
         String username = (String) session.getAttribute("username");
 
+        int role = (int) session.getAttribute("role");
+
         if (username == null) {
-            return "redirect:/admin/login";
+            return "redirect:/home/login";
         }
         model.addAttribute("username", username);
+        model.addAttribute("role", role);
         model.addAttribute("contentAdmin", "/admin/home-admin");
         return"layouts/admin";
     }

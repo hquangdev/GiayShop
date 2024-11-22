@@ -5,7 +5,7 @@
         <!-- PAGE CONTENT BEGINS -->
         <div class="row">
             <div class="col-xs-12">
-                <h3 class="header smaller lighter blue">Danh sách khách hàng</h3>
+                <h3 class="header smaller lighter blue">Danh sách User</h3>
 
                 <div class="clearfix">
                     <div class="pull-right tableTools-container"></div>
@@ -21,34 +21,43 @@
                             <th>ID</th>
                             <th>Họ và tên</th>
                             <th>G-mail</th>
+                            <th>Chức vụ</th>
+                            <th>Số điện thoại</th>
                             <th>Mật khẩu</th>
                             <th>Hành động</th>
                         </tr>
                         </thead>
 
                         <tbody>
-                        <tr th:each="item: ${khach}">
-                            <td class="center" th:text="${item.id}"> </td>
+                        <tr th:each="item: ${user}">
+                            <td class="center" th:text="${item.id}"></td>
+                            <td class="center" th:text="${item.username}"></td>
+                            <td class="center" th:text="${item.email}"></td>
+                            <td class="center">
+                                <span th:switch="${item.role}">
+                                <span th:case="1">Admin</span>
+                                <span th:case="2">Nhân viên</span>
+                                <span th:case="3">Khách hàng</span>
+                            </span>
+                            </td>
 
-                            <td class="center" th:text="${item.username}"> </td>
 
-                            <td class="center" th:text="${item.email}"> </td>
-                            <td class="center" th:text="${item.password}"> </td>
+                            <td class="center" th:text="${item.phone}"></td>
+                            <td class="center" th:text="${item.password}"></td>
 
                             <td>
                                 <div class="hidden-sm hidden-xs action-buttons">
-
-                                    <a class="green" th:href="@{/admin/khachhang/delete/{id}(id=${item.id})}">
+                                    <!-- Kiểm tra nếu role là 1 thì mới hiển thị nút xóa -->
+                                    <a class="green" th:if="${role == 1}" th:href="@{/admin/user/delete/{id}(id=${item.id})}">
                                         <i class="ace-icon fa fa-trash-o bigger-130"></i>
                                     </a>
-
+                                    <span th:unless="${role == 1}">Ko có quyền</span>
                                 </div>
-
                             </td>
                         </tr>
-
                         </tbody>
                     </table>
+
                 </div>
             </div>
         </div>

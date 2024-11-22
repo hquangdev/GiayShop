@@ -21,20 +21,42 @@ public class ClientController {
     // Xử lý Đăng nhập
     @PostMapping("/home/login")
     public String login(@RequestParam("email") String email,
-                        @RequestParam("password") String password,
-                        HttpSession session, Model model, RedirectAttributes redirectAttributes) {
+                        @RequestParam("password") String password, Model model,
+                        HttpSession session, RedirectAttributes redirectAttributes) {
+        // Xác thực thông tin người dùng từ service
         Client user = userService.authenticate(email, password);
 
         if (user != null) {
             // Lưu thông tin người dùng vào session
             session.setAttribute("loggedInUser", user);
-            redirectAttributes.addFlashAttribute("mess", "Bạn đã đăng nhập thành công");
-            return "redirect:/home";
+            session.setAttribute("username", user.getUsername());
+            session.setAttribute("role", user.getRole());
+
+            int role = user.getRole();
+
+            if (role == 1 || role == 2) {
+                // Admin và Nhân viên sẽ chuyển tới trang quản lý
+                redirectAttributes.addFlashAttribute("mess", "Bạn đã đăng nhập thành công.");
+                
+                return "redirect:/admin/home";
+            } else if (role == 3) {
+                // Khách sẽ chuyển tới trang home
+                redirectAttributes.addFlashAttribute("mess", "Bạn đã đăng nhập thành công.");
+                return "redirect:/home";
+            }
+
         } else {
+            // Nếu thông tin đăng nhập sai
             redirectAttributes.addFlashAttribute("mess", "Tài khoản hoặc mật khẩu sai");
             return "redirect:/home/login";
         }
+
+        // Nếu role không khớp, trả về trang login (trường hợp không hợp lệ)
+        redirectAttributes.addFlashAttribute("mess", "Role không hợp lệ.");
+        return "redirect:/home/login";
     }
+
+
 
     // Xử lý Đăng xuất
     @GetMapping("/home/logout")
@@ -48,6 +70,7 @@ public class ClientController {
     public String register(@RequestParam("email") String email,
                            @RequestParam("username") String username,
                            @RequestParam("password") String password,
+                           @RequestParam("phone") String phone,
                            Model model, RedirectAttributes redirectAttributes) {
         // Kiểm tra xem email đã tồn tại chưa
         if (userService.checkEmailExists(email)) {
@@ -56,11 +79,15 @@ public class ClientController {
             return "/layouts/client";
         }
 
+        int role = 2;
+
         // Tạo tài khoản mới
         Client newUser = new Client();
         newUser.setEmail(email);
         newUser.setUsername(username);
         newUser.setPassword(password);
+        newUser.setPhone(phone);
+        newUser.setRole(role);
 
         userService.saveClient(newUser);
         redirectAttributes.addFlashAttribute("mess", "Bạn đã đăng kí thành công");

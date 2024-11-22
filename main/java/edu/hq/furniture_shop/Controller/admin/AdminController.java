@@ -1,9 +1,6 @@
 package edu.hq.furniture_shop.Controller.admin;
 
-import edu.hq.furniture_shop.Model.Admin;
 import edu.hq.furniture_shop.Model.Client;
-import edu.hq.furniture_shop.Model.Order;
-import edu.hq.furniture_shop.Repository.AdminRepository;
 import edu.hq.furniture_shop.Repository.ClientRepository;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,74 +17,31 @@ public class AdminController  {
     @Autowired
     private ClientRepository clientRepository;
 
-    @Autowired
-    private AdminRepository adminRepository;
-
     //đăng kí
     @PostMapping("/admin/register")
-    public String handleRegister(
-            @RequestParam String name,
-            @RequestParam String email,
-            @RequestParam String password,
-            @RequestParam String address,
-            @RequestParam String phone,
-            RedirectAttributes redirectAttributes) {
-
-        // Kiểm tra email đã tồn tại chưa
-        if (adminRepository.findByEmail(email).isPresent()) {
+    public String handleRegister(@ModelAttribute Client client, RedirectAttributes redirectAttributes) {
+        // Kiểm tra email đã tồn tại
+        if (clientRepository.findByEmail(client.getEmail()).isPresent()) {
             redirectAttributes.addFlashAttribute("error", "Email đã được sử dụng!");
-            return "redirect:/admin/register";
+            return "redirect:/admin/user/add";
         }
 
-        // Tạo một đối tượng User mới
-        Admin admin = new Admin();
-
-        admin.setName(name);
-        admin.setEmail(email);
-        admin.setPassword(password);
-        admin.setAddress(address);
-        admin.setPhone(phone);
-
-        System.out.println("Saving admin: " + admin);
-        // Lưu vào cơ sở dữ liệu
-        adminRepository.save(admin);
-
-        System.out.println("Saving admin: " + admin);
+        clientRepository.save(client);
 
         redirectAttributes.addFlashAttribute("message", "Đăng ký thành công! Vui lòng đăng nhập.");
-        return "redirect:/admin/register";
+        return "redirect:/admin/user/add";
     }
 
-
-    // Xử lý đăng nhập
-    @PostMapping("/admin/login")
-    public String handleLogin(
-            @RequestParam String email,
-            @RequestParam String password,
-            HttpSession session,
-            RedirectAttributes redirectAttributes) {
-
-        Optional<Admin> adminOptional = adminRepository.findByEmail(email);
-
-        if (adminOptional.isPresent()) {
-            Admin admin = adminOptional.get();
-
-            if (admin.getPassword().equals(password)) {
-
-                session.setAttribute("loggedIn", true);
-                session.setAttribute("username", admin.getName());
-                session.setAttribute("email", email);
-                return "redirect:/admin/home";
-            } else {
-                redirectAttributes.addFlashAttribute("error", "Mật khẩu không đúng!");
-                return "redirect:/admin/login";
-            }
-        } else {
-            redirectAttributes.addFlashAttribute("error", "Email không tồn tại!");
-            return "redirect:/admin/login";
+    @GetMapping("/admin/user/add")
+    public String register(HttpSession session, Model model) {
+        String username = (String) session.getAttribute("username");
+        if (username == null) {
+            return "redirect:/home/login";
         }
-    }
 
+        model.addAttribute("contentAdmin", "admin/user/register");
+        return "layouts/admin";
+    }
 
     // Đăng xuất
     @GetMapping("/admin/logout")
@@ -96,62 +50,37 @@ public class AdminController  {
         return "redirect:/home";
     }
 
-    //Khách hàng
-    @GetMapping("/admin/khachhang")
-    public String listKhachhang(HttpSession session, Model model) {
+    @GetMapping("/admin/user")
+    public String listUser(HttpSession session, Model model) {
 
+        int role = (int) session.getAttribute("role");
         String username = (String) session.getAttribute("username");
 
         if (username == null) {
             return "redirect:/admin/login";
         }
 
-        model.addAttribute("khach", clientRepository.findAll());
-        model.addAttribute("contentAdmin", "/admin/khachhang/list");
+        model.addAttribute("user", clientRepository.findAll());
+        model.addAttribute("role", role);
+        model.addAttribute("username", username);
+        model.addAttribute("contentAdmin", "/admin/user/list");
         return "/layouts/admin";
     }
 
-    //Khách hàng
-    @GetMapping("/admin/nhanvien")
-    public String listNhanvien(HttpSession session, Model model) {
 
-        String username = (String) session.getAttribute("username");
 
-        if (username == null) {
-            return "redirect:/admin/login";
-        }
-
-        model.addAttribute("nhanvien", adminRepository.findAll());
-        model.addAttribute("contentAdmin", "/admin/nhanvien/list");
-        return "/layouts/admin";
-    }
-
-    //xóa khách
-    @GetMapping("/admin/khachhang/delete/{id}")
+    //xóa
+    @GetMapping("/admin/user/delete/{id}")
     public String deleteKhach(@PathVariable Long id, RedirectAttributes redirectAttributes) {
-
 
         Optional<Client> orderOptional = clientRepository.findById(id);
         if (orderOptional.isPresent()) {
-            // Xóa hóa đơn
+
             clientRepository.deleteById(id);
             redirectAttributes.addFlashAttribute("mess", "Bạn đã xóa thành công hóa đơn.");
         }
-        return "redirect:/admin/bill/list";
+        return "redirect:/admin/user";
     }
 
-    //xóa nhân viên
-    @GetMapping("/admin/nhanvien/delete/{id}")
-    public String deleteNhanvien(@PathVariable Long id, RedirectAttributes redirectAttributes) {
-
-
-        Optional<Admin> orderOptional = adminRepository.findById(id);
-        if (orderOptional.isPresent()) {
-            // Xóa hóa đơn
-            adminRepository.deleteById(id);
-            redirectAttributes.addFlashAttribute("mess", "Bạn đã xóa thành công hóa đơn.");
-        }
-        return "redirect:/admin/bill/list";
-    }
 
 }

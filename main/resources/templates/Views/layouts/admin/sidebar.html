@@ -58,13 +58,17 @@
                         <b class="arrow fa fa-angle-down"></b>
                     </a>
 
-                    <ul class="submenu" >
-                        <li class="">
-                            <a th:href="@{/admin/products/add}">Thêm sản phẩm</a>
+                    <ul class="submenu">
+                        <!-- Nếu role = 1, hiển thị mục "Thêm danh mục" -->
+                        <li th:if="${role == 1}">
+                            <a th:href="@{/admin/products/add}">Thêm danh mục</a>
                         </li>
 
-                        <li class="">
-                            <a th:href="@{/admin/products/list}">Danh sách sản phẩm</a>
+                        <li>
+                            <a th:href="@{/admin/products/list}">Danh sách danh mục</a>
+                        </li>
+
+                        <li th:if="${role != 1}">
                         </li>
                     </ul>
                 </li>
@@ -76,15 +80,20 @@
                         <b class="arrow fa fa-angle-down"></b>
                     </a>
 
-                    <ul class="submenu" >
-                        <li class="">
+                    <ul class="submenu">
+                        <!-- Nếu role = 1, hiển thị mục "Thêm danh mục" -->
+                        <li th:if="${role == 1}">
                             <a th:href="@{/admin/categorys/add}">Thêm danh mục</a>
                         </li>
 
-                        <li class="">
+                        <li>
                             <a th:href="@{/admin/categorys/list}">Danh sách danh mục</a>
                         </li>
+
+                        <li th:if="${role != 1}">
+                        </li>
                     </ul>
+
                 </li>
 
                 <li class="">
@@ -94,13 +103,17 @@
                         <b class="arrow fa fa-angle-down"></b>
                     </a>
 
-                    <ul class="submenu" >
-                        <li class="">
-                            <a th:href="@{/admin/slide/add}">Thêm slide</a>
+                    <ul class="submenu">
+                        <!-- Nếu role = 1, hiển thị mục "Thêm danh mục" -->
+                        <li th:if="${role == 1}">
+                            <a th:href="@{/admin/slide/add}">Thêm danh mục</a>
                         </li>
 
-                        <li class="">
-                            <a th:href="@{/admin/slide/list}">Danh sách slide</a>
+                        <li>
+                            <a th:href="@{/admin/slide/list}">Danh sách danh mục</a>
+                        </li>
+
+                        <li th:if="${role != 1}">
                         </li>
                     </ul>
                 </li>
@@ -120,21 +133,25 @@
                 </li>
 
 
-
                 <li class="">
                     <a href="#" class="dropdown-toggle">
                         <i class="menu-icon fa fa-list"></i>
-                        <span class="menu-text"> Quản lý khách & nhân viên </span>
+                        <span class="menu-text"> Quản lý user </span>
                         <b class="arrow fa fa-angle-down"></b>
                     </a>
 
-                    <ul class="submenu" >
-                        <li class="">
-                            <a th:href="@{/admin/khachhang}">Danh sách khách hàng</a>
+
+                    <ul class="submenu">
+                        <!-- Nếu role = 1, hiển thị mục "Thêm danh mục" -->
+                        <li th:if="${role == 1}">
+                            <a th:href="@{/admin/user/add}">Thêm nhân viên</a>
                         </li>
 
-                        <li class="">
-                            <a th:href="@{/admin/nhanvien}">Danh sách nhân viên</a>
+                        <li>
+                            <a th:href="@{/admin/user}">Danh sách User</a>
+                        </li>
+
+                        <li th:if="${role != 1}">
                         </li>
                     </ul>
                 </li>

@@ -27,14 +27,17 @@ public class SlideController {
     @GetMapping("/list")
     public String list(Model model, HttpSession session) {
         String username = (String) session.getAttribute("username");
+        int role = (int) session.getAttribute("role");
 
-        if (username == null) {
-            return "redirect:/admin/login";
+        if (role == 0) {
+            return "redirect:/home/login";
         }
 
         List<Slide> listSlide = slideRepository.findAll();
         model.addAttribute("slide", listSlide);
         model.addAttribute("contentAdmin", "/admin/slide/list");
+        model.addAttribute("role", role);
+        model.addAttribute("username", username);
         return "/layouts/admin";
     }
 
@@ -76,11 +79,9 @@ public class SlideController {
                 return "redirect:/admin/slide/add?error=file_upload";
             }
         } else {
-            // Nếu file rỗng, có thể gán một giá trị mặc định hoặc thông báo lỗi
             return "redirect:/admin/slide/add?error=empty_file";
         }
 
-        // Gán các giá trị khác cho slide
         slide.setTitle(title);
         slide.setContent(content);
 
@@ -120,11 +121,9 @@ public class SlideController {
                 File uploadFile = new File(uploadDir + fileName);
                 file.transferTo(uploadFile);
 
-                // Cập nhật đường dẫn ảnh mới vào đối tượng slide
                 slide.setImg(fileName);
             } catch (IOException e) {
                 e.printStackTrace();
-                // Xử lý lỗi nếu cần
             }
         }
 
